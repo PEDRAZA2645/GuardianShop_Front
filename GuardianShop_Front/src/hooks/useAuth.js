@@ -19,13 +19,13 @@ const useAuth = () => {
         try {
             let response;
             if (mode === 'login') {
-                response = await axios.post('http://localhost:8082/auth/login', {
+                response = await axios.post('https://backend-guardianshop.onrender.com/auth/login', {
                     email: formData.email,
                     password: formData.password,
                 });
                 navigate('/products');
             } else if (mode === 'register') {
-                response = await axios.post('http://localhost:8082/auth/register', {
+                response = await axios.post('https://backend-guardianshop.onrender.com/auth/register', {
                     ...formData,
                 });
                 navigate('/register');

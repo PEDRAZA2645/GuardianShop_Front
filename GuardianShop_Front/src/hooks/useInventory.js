@@ -10,7 +10,7 @@ const useInventory = () => {
         const payload = { page: 1 };
         const base64Payload = btoa(JSON.stringify(payload));
 
-        const response = await fetch('http://localhost:8082/services/list/all', {
+        const response = await fetch('https://backend-guardianshop.onrender.com/services/list/all', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
