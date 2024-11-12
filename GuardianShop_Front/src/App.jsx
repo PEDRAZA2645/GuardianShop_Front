@@ -6,6 +6,8 @@ import Register from "./pages/auth/Register"
 import Dashboard from "./pages/Dashboard"
 import Orders from "./pages/cart/Orders"
 import Products from "./pages/services/Products"
+import Contact from "./components/Contact"
+import ProductDetails from "./pages/services/ProductDetails"
 
 function App() {
   
@@ -16,8 +18,10 @@ function App() {
          {/* colocar dashboard como principal  */}
          <Route index path="/register" element={<Register />} />
          <Route index path="/login" element={<Login />} />
-         <Route index path="/dashboard" element={<Orders />} />
-         <Route index path="/dashboard" element={<Products/>} />
+         <Route index path="/orders" element={<Orders />} />
+         <Route index path="/products" element={<Products/>} />
+         <Route index path="/contactForm" element={<Contact/>} />
+         <Route index path="/productDetails" element={<ProductDetails/>} />
          
 
       </Route>

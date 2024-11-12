@@ -23,7 +23,7 @@ const useAuth = () => {
                     email: formData.email,
                     password: formData.password,
                 });
-                navigate('/dashboard');
+                navigate('/products');
             } else if (mode === 'register') {
                 response = await axios.post('http://localhost:8082/auth/register', {
                     ...formData,
