@@ -46,7 +46,7 @@ const useRegister = () => {
                 createUser: formData.createUser,
             };    
 
-            const response = await axios.post('https://backend-guardianshop.onrender.com/auth/register', userObject, {
+            const response = await axios.post('http://localhost:8082/auth/register', userObject, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

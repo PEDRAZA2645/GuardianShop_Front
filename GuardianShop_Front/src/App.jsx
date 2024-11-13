@@ -1,13 +1,13 @@
-import { createBrowserRouter, createRoutesFromElements, Route, Outlet, RouterProvider } from "react-router-dom"
-import Login from './pages/auth/Login'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import Register from "./pages/auth/Register"
-import Dashboard from "./pages/Dashboard"
-import Orders from "./pages/cart/Orders"
-import Products from "./pages/services/Products"
-import Contact from "./components/Contact"
-import ProductDetails from "./pages/services/ProductDetails"
+import { createBrowserRouter, createRoutesFromElements, Route, Outlet, RouterProvider } from "react-router-dom";
+import Login from './pages/auth/Login';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Register from "./pages/auth/Register";
+import Dashboard from "./pages/Dashboard";
+import Orders from "./pages/cart/Orders";
+import Products from "./pages/services/Products";
+import Contact from "./components/Contact";
+import ProductDetails from "./pages/services/ProductDetails";
 
 function App() {
   
@@ -22,8 +22,7 @@ function App() {
          <Route index path="/products" element={<Products/>} />
          <Route index path="/contactForm" element={<Contact/>} />
          <Route index path="/productDetails" element={<ProductDetails/>} />
-         
-
+      
       </Route>
     )
   )

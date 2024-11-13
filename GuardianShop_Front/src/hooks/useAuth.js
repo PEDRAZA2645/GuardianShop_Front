@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,16 @@ const useAuth = () => {
         password: ''
     });
     const [message, setMessage] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);  // Estado para manejar la autenticación
     const navigate = useNavigate();
+
+    // Verificar si ya hay una sesión activa (por ejemplo, un token almacenado en localStorage)
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            setIsAuthenticated(true);  // Si hay un token, asumimos que está autenticado
+        }
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -19,13 +28,16 @@ const useAuth = () => {
         try {
             let response;
             if (mode === 'login') {
-                response = await axios.post('https://backend-guardianshop.onrender.com/auth/login', {
+                response = await axios.post('http://localhost:8082/auth/login', {
                     email: formData.email,
                     password: formData.password,
                 });
-                navigate('/products');
+                // Suponemos que el backend devuelve un token para la autenticación
+                localStorage.setItem('authToken', response.data.token); // Guardar el token
+                setIsAuthenticated(true); // Usuario autenticado correctamente
+                navigate('/products'); // Redirigir a productos
             } else if (mode === 'register') {
-                response = await axios.post('https://backend-guardianshop.onrender.com/auth/register', {
+                response = await axios.post('http://localhost:8082/auth/register', {
                     ...formData,
                 });
                 navigate('/register');
@@ -36,11 +48,19 @@ const useAuth = () => {
         }
     };
 
+    const logout = () => {
+        localStorage.removeItem('authToken');
+        setIsAuthenticated(false);
+        navigate('/login');
+    };
+
     return [
         formData,
         message,
         handleInputChange,
-        handleAuth
+        handleAuth,
+        isAuthenticated,  // Devolver el estado de autenticación
+        logout,
     ];
 };
 

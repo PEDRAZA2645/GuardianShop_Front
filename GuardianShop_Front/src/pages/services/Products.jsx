@@ -1,7 +1,14 @@
 import useInventory from '../../hooks/useInventory';
+import useCart from '../../hooks/cart'; //
 
 const ProductComponent = () => {
   const { services, error } = useInventory();
+  const { addToCart } = useCart();
+
+   // Función para manejar la adición al carrito
+   const handleAddToCart = (product) => {
+    addToCart(product);
+  };
 
   return (
     <div>
@@ -19,7 +26,12 @@ const ProductComponent = () => {
                   <p className="card-text">
                     Precio: ${service.salePrice ? service.salePrice : 'No disponible'}
                   </p>
-                  <button className="btn btn-primary">Agregar al carrito</button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleAddToCart(service)} // Llamar a la función de agregar al carrito
+                  >
+                    Agregar al carrito
+                  </button>
                 </div>
               </div>
             </div>
