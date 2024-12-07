@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Global } from '../helpers/Global';
 
 const useAuth = () => {
     const [formData, setFormData] = useState({
@@ -8,14 +9,13 @@ const useAuth = () => {
         password: ''
     });
     const [message, setMessage] = useState('');
-    const [isAuthenticated, setIsAuthenticated] = useState(false);  // Estado para manejar la autenticación
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const navigate = useNavigate();
 
-    // Verificar si ya hay una sesión activa (por ejemplo, un token almacenado en localStorage)
     useEffect(() => {
         const token = localStorage.getItem('authToken');
         if (token) {
-            setIsAuthenticated(true);  // Si hay un token, asumimos que está autenticado
+            setIsAuthenticated(true);
         }
     }, []);
 
@@ -28,23 +28,22 @@ const useAuth = () => {
         try {
             let response;
             if (mode === 'login') {
-                response = await axios.post('http://localhost:8082/auth/login', {
+                response = await axios.post(Global.url + "auth/login", {
                     email: formData.email,
                     password: formData.password,
                 });
-                // Suponemos que el backend devuelve un token para la autenticación
-                localStorage.setItem('authToken', response.data.token); // Guardar el token
-                setIsAuthenticated(true); // Usuario autenticado correctamente
-                navigate('/products'); // Redirigir a productos
+                localStorage.setItem('authToken', response.data.jwt);
+                setIsAuthenticated(true);
+                navigate('/products');
             } else if (mode === 'register') {
-                response = await axios.post('http://localhost:8082/auth/register', {
+                response = await axios.post(Global.url + "auth/register", {
                     ...formData,
                 });
                 navigate('/register');
             }
             setMessage(response.data.message || 'Success!');
         } catch (error) {
-            setMessage(error.response?.data?.message || 'An error occurred');
+            setMessage(error.response?.data?.message || 'Invalid Username or Password');
         }
     };
 
@@ -59,7 +58,7 @@ const useAuth = () => {
         message,
         handleInputChange,
         handleAuth,
-        isAuthenticated,  // Devolver el estado de autenticación
+        isAuthenticated,
         logout,
     ];
 };
